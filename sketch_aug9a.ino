@@ -12,8 +12,11 @@ LiquidCrystal lcd( pin_RS,  pin_EN,  pin_d4,  pin_d5,  pin_d6,  pin_d7);
 
 #define length 6
 #define characters "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+#define correct "CATDOG"
 
 byte check[8] = { 0b00000, 0b00001, 0b00011, 0b10110, 0b11100, 0b01000, 0b00000, 0b00000 };
+char sollution[11] = {};
+int position = 0;
 
 enum STATE
 {
@@ -39,6 +42,11 @@ int read_LCD_buttons()
 
 void task()
 {
+  lcd.setCursor(position,1);
+  lcd.write(255); delay(500);
+  lcd.setCursor(position,1);
+  lcd.write(sollution[position]); delay(500);
+
   static STATE state = IDLE;
   switch(state)
   {
@@ -56,10 +64,14 @@ void task()
     }
     case LEFT:
     {
+      position--;
+      if(position < 0) position = 0;
       break;
     }
     case RIGHT:
     {
+      position++;
+      if(position > 15) position = 15;
       break;
     }
     case SELECT:
@@ -78,7 +90,7 @@ void setup()
   lcd.setCursor(0,1);
 
   char stars[11];
-  for(int i=0; i<length; i++) stars[i]='*';
+  for(int i=0; i<length; i++) stars[i] = sollution[i] = '*';
   stars[length]='\0';
   lcd.print(stars);
 
@@ -89,5 +101,5 @@ void setup()
 
 void loop() 
 {
-  
+  task();
 }
