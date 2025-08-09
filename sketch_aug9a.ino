@@ -13,7 +13,9 @@ LiquidCrystal lcd( pin_RS,  pin_EN,  pin_d4,  pin_d5,  pin_d6,  pin_d7);
 #define length 6
 #define characters "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 
-enum state
+byte check[8] = { 0b00000, 0b00001, 0b00011, 0b10110, 0b11100, 0b01000, 0b00000, 0b00000 };
+
+enum STATE
 {
   IDLE,
   UP,
@@ -22,6 +24,50 @@ enum state
   RIGHT,
   SELECT
 };
+
+int read_LCD_buttons() 
+{
+  int buton = analogRead(0);
+  if (buton > 1000) return 0; //none
+  if (buton < 50)   return 1; //right
+  if (buton < 250)  return 2; //up
+  if (buton < 450)  return 3; //down
+  if (buton < 600)  return 4; //left
+  if (buton < 920)  return 5; //select
+  return 0; //none
+}
+
+void task()
+{
+  static STATE state = IDLE;
+  switch(state)
+  {
+    case IDLE:
+    {
+      break;
+    }
+    case UP:
+    {
+      break;
+    } 
+    case DOWN:
+    {
+      break;
+    }
+    case LEFT:
+    {
+      break;
+    }
+    case RIGHT:
+    {
+      break;
+    }
+    case SELECT:
+    {
+      break;
+    }
+  }
+}
 
 void setup() 
 {
@@ -35,26 +81,13 @@ void setup()
   for(int i=0; i<length; i++) stars[i]='*';
   stars[length]='\0';
   lcd.print(stars);
+
+  lcd.createChar(0, check); 
+  lcd.setCursor(15,1);
+  lcd.write(byte(0));
 }
 
 void loop() 
 {
-  int x;
-  x = analogRead (0);
-  lcd.setCursor(10,1);
-  if (x < 60) {
-    lcd.print ("Right ");
-  }
-  else if (x < 200) {
-    lcd.print ("Up    ");
-  }
-  else if (x < 400){
-    lcd.print ("Down  ");
-  }
-  else if (x < 600){
-    lcd.print ("Left  ");
-  }
-  else if (x < 800){
-    lcd.print ("Select");
-  }
+  
 }
