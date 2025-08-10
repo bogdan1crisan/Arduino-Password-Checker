@@ -24,7 +24,7 @@ The FSM is designed with clear states to handle user input:
 
 ---
 
-## 🔍 How It Works
+## How It Works
 
 1. On startup, the LCD shows **ENTER CODE:** and a series of `*` representing hidden characters.
 2. The **UP** and **DOWN** buttons change the character at the cursor’s position.
@@ -33,3 +33,15 @@ The FSM is designed with clear states to handle user input:
    - **Correct code** → Displays **YOU DID IT!**
    - **Wrong code** → Displays **WRONGGG >:(** and resets the entry field.
 5. All input handling and state transitions are managed by the `task()` function.
+
+---
+
+## Demonstration
+
+### Success Case
+
+![Success GIF](correct.gif)
+
+### Failure Case
+
+![Failure GIF](wrong.gif)
