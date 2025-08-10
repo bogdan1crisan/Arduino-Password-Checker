@@ -20,9 +20,7 @@ The FSM is designed with clear states to handle user input:
 
 ### FSM Diagram
 
-_A diagram of the state transitions will be placed here:_
-
-![FSM Diagram](figure.png)
+![FSM Diagram](Figure.png)
 
 ---
 
